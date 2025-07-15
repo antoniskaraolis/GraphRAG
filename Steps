@@ -1,0 +1,199 @@
+# GraphRAG Streamlit Application - Simple Action Plan
+
+## 🎯 Project Flow
+```
+Step 1: Build GraphRAG Database → Step 2: Create MCP Server → Step 3: Build UI
+```
+
+---
+
+## 📊 STEP 1: GraphRAG Database & Query System
+
+### What We're Building
+A graph database that stores academic papers and their relationships, with smart querying capabilities.
+
+### 1.1 Setup Database
+**Goal**: Get the data ready and stored
+- [ ] Download ArXiv dataset
+- [ ] Clean the data (authors, papers, citations)
+- [ ] Choose database: NetworkX (simple) or Neo4j (production)
+- [ ] Create graph structure:
+  - **Nodes**: Papers, Authors, Institutions, Topics
+  - **Edges**: Citations, Collaborations, Affiliations
+
+### 1.2 Add Intelligence
+**Goal**: Make entities "smart" with embeddings
+- [ ] Create embeddings for papers (using titles/abstracts)
+- [ ] Create embeddings for authors (based on their work)
+- [ ] Store embeddings alongside graph data
+
+### 1.3 Implement Clustering
+**Goal**: Group similar things together
+- [ ] Find paper clusters (similar research areas)
+- [ ] Find author clusters (similar research interests)
+- [ ] Use algorithms like Louvain or K-means
+
+### 1.4 Build Query System
+**Goal**: Smart search and retrieval
+- [ ] Semantic search: "Find papers about machine learning"
+- [ ] Relationship queries: "Who collaborates with this author?"
+- [ ] RAG queries: "What are the latest trends in AI?"
+- [ ] Multi-hop exploration: Find papers → similar papers → their authors
+
+**Deliverable**: Working GraphRAG system that can answer questions
+
+---
+
+## 🔌 STEP 2: MCP Server Integration
+
+### What We're Building
+An MCP server that exposes our GraphRAG system to external applications.
+
+### 2.1 Create MCP Server
+**Goal**: Wrap GraphRAG in MCP protocol
+- [ ] Set up MCP server structure
+- [ ] Create core endpoints:
+  ```python
+  # Basic operations
+  /graph/stats          # Get graph statistics
+  /graph/search         # Search entities
+  /graph/neighbors      # Find connected entities
+  
+  # RAG operations  
+  /rag/query           # Ask questions
+  /rag/context         # Get context for entities
+  
+  # Clustering operations
+  /clusters/list       # Show all clusters
+  /clusters/analyze    # Analyze cluster quality
+  ```
+
+### 2.2 Test MCP Integration
+**Goal**: Make sure everything works together
+- [ ] Test all MCP endpoints
+- [ ] Add error handling
+- [ ] Optimize response times
+- [ ] Add caching for common queries
+
+**Deliverable**: MCP server that other applications can use
+
+---
+
+## 🖥️ STEP 3: Streamlit UI
+
+### What We're Building
+An interactive web app to explore and visualize the GraphRAG system.
+
+### 3.1 Core Pages
+**Goal**: Basic navigation and functionality
+
+**📈 Dashboard Page**
+- [ ] Graph statistics (# papers, authors, citations)
+- [ ] Quick search box
+- [ ] Recent queries
+
+**🔍 Search Page**
+- [ ] Search papers, authors, topics
+- [ ] Show results with relevance scores
+- [ ] Click to explore relationships
+
+### 3.2 Interactive Visualization
+**Goal**: Visual graph exploration
+
+**🕸️ Graph Explorer Page**
+- [ ] Interactive graph visualization (use `streamlit-agraph`)
+- [ ] Filter by entity type (papers/authors/topics)
+- [ ] Zoom, pan, and click on nodes
+- [ ] Show entity details in sidebar
+
+**🎯 Clustering Page**
+- [ ] Show different clustering results
+- [ ] Compare clustering methods
+- [ ] Visualize clusters in 2D/3D
+
+### 3.3 RAG Interface
+**Goal**: Question-answering interface
+
+**💬 RAG Query Page**
+- [ ] Natural language question input
+- [ ] Show answer with source papers
+- [ ] Display reasoning path through graph
+- [ ] Save/export query results
+
+### 3.4 Polish & Deploy
+**Goal**: Make it production-ready
+- [ ] Add loading indicators
+- [ ] Improve error messages
+- [ ] Add help documentation
+- [ ] Deploy to Streamlit Cloud
+
+**Deliverable**: Complete working application
+
+---
+
+## 🛠️ Tech Stack
+
+### Database Layer
+- **NetworkX** (for prototyping) or **Neo4j** (for production)
+- **Sentence Transformers** for embeddings
+- **Scikit-learn** for clustering
+
+### MCP Server
+- **mcp-server-python** for MCP protocol
+- **FastAPI** for HTTP endpoints
+- **Pandas** for data processing
+
+### Streamlit UI
+- **Streamlit** for web interface
+- **streamlit-agraph** for graph visualization
+- **Plotly** for charts and plots
+- **Pandas** for data display
+
+---
+
+## 📋 Quick Start Checklist
+
+### Initial Setup
+- [ ] Install Python dependencies:
+  ```bash
+  pip install networkx pandas sentence-transformers
+  pip install mcp-server-python streamlit streamlit-agraph plotly
+  ```
+- [ ] Download ArXiv metadata
+- [ ] Create basic graph structure
+
+### Test Everything Works
+- [ ] Can load and query graph ✓
+- [ ] MCP server responds to requests ✓  
+- [ ] Streamlit app shows basic data ✓
+
+---
+
+## 📅 Project Timeline
+
+### 🏗️ Work Package 1: Core GraphRAG System
+**Duration**: 4-6 work sessions  
+**Focus**: Database setup, embeddings, clustering, basic queries  
+**Milestone**: Can answer "Find papers about neural networks"
+
+### 🔌 Work Package 2: MCP Integration  
+**Duration**: 2-3 work sessions  
+**Focus**: MCP server setup, endpoint creation, testing  
+**Milestone**: External apps can query via MCP protocol
+
+### 🖥️ Work Package 3: User Interface
+**Duration**: 4-5 work sessions  
+**Focus**: Streamlit pages, visualizations, user experience  
+**Milestone**: Non-technical users can explore the graph
+
+**Total Estimated Time**: 10-14 work sessions
+
+---
+
+## 🎯 Success Criteria
+
+**Step 1 Success**: Can ask "Find papers about neural networks" and get relevant results
+
+**Step 2 Success**: External app can query our GraphRAG via MCP
+
+**Step 3 Success**: Non-technical users can explore the graph visually
