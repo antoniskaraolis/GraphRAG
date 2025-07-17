@@ -3,6 +3,8 @@ from fastmcp import FastMCP
 from .endpoints import graph, rag, clusters
 from .config import settings
 import logging
+import networkx as nx
+
 
 # Initialize FastMCP
 app = FastMCP(
