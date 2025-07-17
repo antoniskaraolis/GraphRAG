@@ -6,6 +6,7 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, message="resource_tracker.*")
+
 import networkx as nx
 import numpy as np
 from graphrag.query import (semantic_search, relationship_queries,
