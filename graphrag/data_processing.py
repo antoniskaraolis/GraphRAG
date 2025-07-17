@@ -3,6 +3,7 @@ import json
 import csv
 import os
 import pandas as pd
+import random
 from collections import defaultdict
 from tqdm import tqdm
 from .utils import clean_text, parse_author, extract_year, map_to_domain
