@@ -14,7 +14,7 @@ def test_endpoint(endpoint, method="GET", payload=None):
             response = requests.post(url, json=payload)
         
         response.raise_for_status()
-        print(f"✅ {endpoint}: Success")
+        print(f"{endpoint}: Success")
         print(json.dumps(response.json(), indent=2))
         return True
     except Exception as e:
