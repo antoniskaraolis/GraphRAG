@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # scripts/query_cli.py
+import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, message="resource_tracker.*")
 import networkx as nx
