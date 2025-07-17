@@ -5,6 +5,8 @@ from ..utils import get_graph
 from graphrag.query import semantic_search
 from datetime import datetime
 import logging
+import networkx as nx
+
 
 router = APIRouter()
 logger = logging.getLogger("graph-endpoint")
