@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 import matplotlib.pyplot as plt
+import networkx as nx
 import pandas as pd
 
 def semantic_search(G, query, top_k=5):
