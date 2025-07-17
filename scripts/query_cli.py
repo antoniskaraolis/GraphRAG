@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # scripts/query_cli.py
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, message="resource_tracker.*")
 import networkx as nx
 import numpy as np
 from graphrag.query import (semantic_search, relationship_queries,
