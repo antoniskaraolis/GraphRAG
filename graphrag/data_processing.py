@@ -1,4 +1,4 @@
-# data processing
+# graphrag/data processing
 import json
 import csv
 import os
