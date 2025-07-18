@@ -14,16 +14,12 @@ logger = logging.getLogger("rag-endpoint")
 def rag_query(req: RagRequest):
     """Answer questions using RAG pipeline"""
     try:
-        # Set API key
         openai.api_key = settings.OPENAI_API_KEY
         
-        # Get graph
         G = get_graph()
         
-        # 1. Retrieve relevant papers
         papers = semantic_search(G, req.question, top_k=3)
         
-        # 2. Build context
         context_parts = []
         for paper in papers:
             context_parts.append(
@@ -32,7 +28,6 @@ def rag_query(req: RagRequest):
             )
         context = "\n\n".join(context_parts)[:req.max_context]
         
-        # 3. Call OpenAI
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
@@ -78,7 +73,7 @@ def get_context(node_id: str):
         context = {
             "category": node_data.get('category'),
             "papers": [G.nodes[p]['title'] for p in G.neighbors(node_id) 
-                       if G.nodes[p].get('type') == 'paper'][:10]  # Top 10 papers
+                       if G.nodes[p].get('type') == 'paper'][:10]
         }
     
     return {"node": node_id, "context": context}
