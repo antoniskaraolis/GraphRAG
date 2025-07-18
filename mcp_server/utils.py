@@ -5,7 +5,6 @@ import logging
 
 logger = logging.getLogger("mcp-server")
 
-# Global graph instance
 G = None
 
 def load_graph():
@@ -15,7 +14,6 @@ def load_graph():
         logger.info(f"Loading graph from {settings.GRAPH_PATH}")
         G = nx.read_graphml(settings.GRAPH_PATH)
         
-        # Convert embeddings
         for node, data in G.nodes(data=True):
             if 'embedding' in data and isinstance(data['embedding'], str):
                 data['embedding'] = [float(x) for x in data['embedding'].split(';')]
