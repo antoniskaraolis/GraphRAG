@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     GRAPH_PATH: str = "data/processed/graph.graphml"
     OPENAI_API_KEY: str = ""
-    CACHE_TTL: int = 300  # 5 minutes
+    CACHE_TTL: int = 300
     
     class Config:
         env_file = ".env"
