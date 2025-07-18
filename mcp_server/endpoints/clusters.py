@@ -23,7 +23,7 @@ def list_clusters():
         ClusterInfo(
             cluster_id=cluster_id,
             paper_count=len(titles),
-            sample_titles=titles[:3]  # Return 3 sample titles
+            sample_titles=titles[:3]
         )
         for cluster_id, titles in clusters.items()
     ]
