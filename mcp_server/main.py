@@ -9,7 +9,7 @@ import networkx as nx
 app = FastAPI(
     title="GraphRAG MCP Server",
     version="1.0.0",
-    description="Microservice Communication Protocol for GraphRAG system"
+    description="MCP Server for GraphRAG system"
 )
 
 app.include_router(graph.router, prefix="/graph")
