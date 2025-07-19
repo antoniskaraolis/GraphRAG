@@ -1,5 +1,5 @@
 # mcp_server/endpoints/graph.py
-from fastapi import APIRouter
+from fastmcp import APIRouter
 from ..models import SearchRequest, SearchResult, StatsResponse
 from ..utils import get_graph
 from graphrag.query import semantic_search
