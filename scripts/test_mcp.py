@@ -28,7 +28,7 @@ if __name__ == "__main__":
     
     # RAG endpoints
     test_endpoint("/rag/query", "POST", {"question": "Statistical methods using machine learning?"})
-    test_endpoint("/rag/context?node_id=paper_0804.2752")
+    test_endpoint("/rag/context?node_id=paper_804.2752")
     
     # Cluster endpoints
     test_endpoint("/clusters/list")
