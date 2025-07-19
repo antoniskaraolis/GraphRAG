@@ -24,11 +24,11 @@ def test_endpoint(endpoint, method="GET", payload=None):
 if __name__ == "__main__":
     # Graph endpoints
     test_endpoint("/graph/stats")
-    test_endpoint("/graph/search", "POST", {"query": "quantum computing", "top_k": 2})
+    test_endpoint("/graph/search", "POST", {"query": "machine learning", "top_k": 2})
     
     # RAG endpoints
-    test_endpoint("/rag/query", "POST", {"question": "What are recent advances in quantum error correction?"})
-    test_endpoint("/rag/context?node_id=paper_1234.56789")
+    test_endpoint("/rag/query", "POST", {"question": "Statistical methods using machine learning?"})
+    test_endpoint("/rag/context?node_id=paper_0804.2752")
     
     # Cluster endpoints
     test_endpoint("/clusters/list")
