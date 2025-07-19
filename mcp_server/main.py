@@ -1,18 +1,16 @@
 # mcp_server/main.py
-from fastmcp import FastMCP
+from fastapi import FastAPI
 from .endpoints import graph, rag, clusters
 from .config import settings
 import logging
 import networkx as nx
 
 
-#app = FastMCP(
-    #title="GraphRAG MCP Server",
-    #version="1.0.0",
-    #description="Microservice Communication Protocol for GraphRAG system"
-#)
-
-app = FastMCP()
+app = FastAPI(
+    title="GraphRAG MCP Server",
+    version="1.0.0",
+    description="Microservice Communication Protocol for GraphRAG system"
+)
 
 app.include_router(graph.router, prefix="/graph")
 app.include_router(rag.router, prefix="/rag")
