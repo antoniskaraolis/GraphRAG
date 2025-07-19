@@ -6,17 +6,19 @@ import logging
 import networkx as nx
 
 
-app = FastMCP(
-    title="GraphRAG MCP Server",
-    version="1.0.0",
-    description="Microservice Communication Protocol for GraphRAG system"
-)
+#app = FastMCP(
+    #title="GraphRAG MCP Server",
+    #version="1.0.0",
+    #description="Microservice Communication Protocol for GraphRAG system"
+#)
+
+app = FastMCP()
 
 app.include_router(graph.router, prefix="/graph")
 app.include_router(rag.router, prefix="/rag")
 app.include_router(clusters.router, prefix="/clusters")
 
-# Setup logging
+# logging
 logging.basicConfig(level=settings.LOG_LEVEL)
 logger = logging.getLogger("mcp-server")
 
