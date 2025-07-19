@@ -1,5 +1,5 @@
 # mcp_server/endpoints/graph.py
-from fastmcp import APIRouter
+from fastapi import APIRouter
 from ..models import SearchRequest, SearchResult, StatsResponse
 from ..utils import get_graph
 from graphrag.query import semantic_search
@@ -11,7 +11,7 @@ import networkx as nx
 router = APIRouter()
 logger = logging.getLogger("graph-endpoint")
 
-@router.endpoint("/stats", response_model=StatsResponse)
+@router.get("/stats", response_model=StatsResponse)
 def get_stats():
     """Get graph statistics"""
     G = get_graph()
@@ -27,7 +27,7 @@ def get_stats():
         topics=topics
     )
 
-@router.endpoint("/search", response_model=list[SearchResult])
+@router.post("/search", response_model=list[SearchResult])
 def search_entities(req: SearchRequest):
     """Semantic search for papers"""
     G = get_graph()
@@ -43,7 +43,7 @@ def search_entities(req: SearchRequest):
         ))
     return results
 
-@router.endpoint("/neighbors")
+@router.get("/neighbors")
 def get_neighbors(node_id: str, relationship: str = None):
     """Get neighbors of a node"""
     G = get_graph()
