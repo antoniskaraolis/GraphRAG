@@ -31,7 +31,7 @@ def rag_query(req: RagRequest):
             sources.append(title)
         context = "\n\n".join(context_parts)[:req.max_context]
         
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a research assistant analyzing academic papers."},
