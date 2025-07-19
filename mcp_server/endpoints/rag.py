@@ -1,5 +1,5 @@
 # mcp_server/endpoints/rag.py
-from fastmcp import APIRouter
+from fastapi import APIRouter
 from ..models import RagRequest, RagResponse
 from ..utils import get_graph
 from graphrag.query import semantic_search
@@ -10,7 +10,7 @@ import logging
 router = APIRouter()
 logger = logging.getLogger("rag-endpoint")
 
-@router.endpoint("/query", response_model=RagResponse)
+@router.post("/query", response_model=RagResponse)
 def rag_query(req: RagRequest):
     """Answer questions using RAG pipeline"""
     try:
@@ -46,7 +46,7 @@ def rag_query(req: RagRequest):
         logger.error(f"RAG query failed: {str(e)}")
         return {"error": str(e)}, 500
 
-@router.endpoint("/context")
+@router.get("/context")
 def get_context(node_id: str):
     """Get context for a specific entity"""
     G = get_graph()
