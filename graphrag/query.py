@@ -29,7 +29,7 @@ def semantic_search(G, query, top_k=5):
         print(f"URL: {G.nodes[node].get('url', 'N/A')}")
         print(f"Abstract: {G.nodes[node].get('abstract', '')[:150]}...")
 
-    return similarities[0][0] if similarities else None
+    return similarities[:top_k]
 
 def relationship_queries(G, paper_node):
     print("\n=== Relationship Queries ===")
