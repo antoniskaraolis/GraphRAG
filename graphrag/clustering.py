@@ -106,7 +106,12 @@ def analyze_clusters(G):
     paper_nodes = [n for n, d in G.nodes(data=True)
                    if d.get('type') == 'paper' and 'cluster' in d and 'embedding' in d]
     if not paper_nodes:
-        return {"error": "No clustered papers with embeddings found."}
+        return {
+            "error": "No clustered papers with embeddings found.",
+            "num_clusters": 0,
+            "cluster_sizes": {},
+            "silhouette": None
+        }
 
     clusters = {}
     embeddings = []
@@ -124,3 +129,20 @@ def analyze_clusters(G):
             raise TypeError(f"Unsupported embedding type for node {node}: {type(emb)}")
         embeddings.append(emb_vec)
         labels.append(cid)
+
+    num_clusters = len(clusters)
+    cluster_sizes = {str(cid): len(nodes) for cid, nodes in clusters.items()}
+
+    silhouette = None
+    if num_clusters > 1 and all(len(nodes) > 1 for nodes in clusters.values()):
+        try:
+            from sklearn.metrics import silhouette_score
+            silhouette = float(silhouette_score(embeddings, labels))
+        except Exception as e:
+            silhouette = f"Could not compute: {e}"
+
+    return {
+        "num_clusters": num_clusters,
+        "cluster_sizes": cluster_sizes,
+        "silhouette": silhouette
+    }
