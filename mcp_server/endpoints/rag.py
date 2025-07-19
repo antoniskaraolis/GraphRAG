@@ -1,5 +1,6 @@
 # mcp_server/endpoints/rag.py
 from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 from ..models import RagRequest, RagResponse
 from ..utils import get_graph
 from graphrag.query import semantic_search
@@ -44,14 +45,14 @@ def rag_query(req: RagRequest):
         )
     except Exception as e:
         logger.error(f"RAG query failed: {str(e)}")
-        return {"error": str(e)}, 500
+        return JSONResponse(status_code=500, content={"error": str(e)})
 
 @router.get("/context")
 def get_context(node_id: str):
     """Get context for a specific entity"""
     G = get_graph()
     if node_id not in G.nodes:
-        return {"error": "Node not found"}, 404
+        return JSONResponse(status_code=404, content={"error": "Node not found"})
         
     node_data = G.nodes[node_id]
     context = {}
