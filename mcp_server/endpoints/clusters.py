@@ -1,5 +1,5 @@
 # mcp_server/endpoints/clusters.py
-from fastmcp import APIRouter
+from fastapi import APIRouter
 from ..models import ClusterInfo
 from ..utils import get_graph
 import logging
@@ -7,7 +7,7 @@ import logging
 router = APIRouter()
 logger = logging.getLogger("clusters-endpoint")
 
-@router.endpoint("/list", response_model=list[ClusterInfo])
+@router.get("/list", response_model=list[ClusterInfo])
 def list_clusters():
     """List all paper clusters"""
     G = get_graph()
@@ -28,7 +28,7 @@ def list_clusters():
         for cluster_id, titles in clusters.items()
     ]
 
-@router.endpoint("/analyze")
+@router.get("/analyze")
 def analyze_clusters():
     """Analyze cluster quality"""
     G = get_graph()
