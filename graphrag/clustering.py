@@ -2,6 +2,7 @@
 import numpy as np
 from sklearn.cluster import KMeans
 import community.community_louvain as community_louvain
+from sklearn.metrics import silhouette_score
 
 def cluster_papers(G, n_clusters=10):
     paper_nodes = [n for n, d in G.nodes(data=True)
@@ -100,3 +101,47 @@ def cluster_authors(G, method='hybrid', n_clusters=10):
         print(f"Created hybrid clusters for {len(set(partition.values()))} communities")
 
     return G
+
+def analyze_clusters(G):
+    """
+    Analyze quality and statistics of paper clusters.
+    Returns:
+        dict with number of clusters, cluster sizes, and silhouette score (if possible).
+    """
+    # Find paper nodes with cluster assignment
+    paper_nodes = [n for n, d in G.nodes(data=True)
+                   if d.get('type') == 'paper' and 'cluster' in d and 'embedding' in d]
+    if not paper_nodes:
+        return {
+            "error": "No clustered papers with embeddings found.",
+            "num_clusters": 0,
+            "cluster_sizes": {},
+            "silhouette": None
+        }
+
+    clusters = {}
+    embeddings = []
+    labels = []
+    for node in paper_nodes:
+        cid = G.nodes[node]['cluster']
+        clusters.setdefault(cid, []).append(node)
+        emb_str = G.nodes[node]['embedding']
+        embeddings.append(np.array([float(x) for x in emb_str.split(';')]))
+        labels.append(cid)
+
+    num_clusters = len(clusters)
+    cluster_sizes = {str(cid): len(nodes) for cid, nodes in clusters.items()}
+
+    # Compute silhouette score if there are >1 clusters and >1 paper per cluster
+    silhouette = None
+    if num_clusters > 1 and all(len(nodes) > 1 for nodes in clusters.values()):
+        try:
+            silhouette = silhouette_score(embeddings, labels)
+        except Exception as e:
+            silhouette = f"Could not compute: {e}"
+
+    return {
+        "num_clusters": num_clusters,
+        "cluster_sizes": cluster_sizes,
+        "silhouette": silhouette
+    }
