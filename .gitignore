@@ -1,0 +1,36 @@
+# Ignore processed data and embeddings
+data/processed/
+data/embeddings/
+*.graphml
+*.csv
+*.tsv
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.sqlite
+*.db
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
