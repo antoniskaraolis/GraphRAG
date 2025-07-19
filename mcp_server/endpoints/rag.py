@@ -22,11 +22,13 @@ def rag_query(req: RagRequest):
         papers = semantic_search(G, req.question, top_k=3)
         
         context_parts = []
-        for paper in papers:
+        sources = []
+        for node, score, title, cluster in papers:
             context_parts.append(
-                f"Title: {G.nodes[paper]['title']}\n"
-                f"Abstract: {G.nodes[paper]['abstract'][:500]}"
+                f"Title: {'title'}\n"
+                f"Abstract: {G.nodes[node]['abstract'][:500]}"
             )
+            sources.append(title)
         context = "\n\n".join(context_parts)[:req.max_context]
         
         response = openai.ChatCompletion.create(
@@ -40,7 +42,7 @@ def rag_query(req: RagRequest):
         
         return RagResponse(
             answer=response.choices[0].message.content,
-            sources=[G.nodes[paper]['title'] for paper in papers],
+            sources=sources,
             context_length=len(context)
         )
     except Exception as e:
