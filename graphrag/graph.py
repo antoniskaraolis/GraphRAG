@@ -44,7 +44,6 @@ def build_graph(csv_files):
             relationship="AUTHORED_BY"
         )
 
-    print("Adding topic edges...")
     for _, row in tqdm(topic_edges.iterrows(), total=len(topic_edges)):
         G.add_edge(
             f"paper_{row['paper_id']}",
