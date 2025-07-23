@@ -55,6 +55,7 @@ def main():
             else:
                 print("No matching papers found.")
                 current_paper = None
+                
         elif choice == "2":
             if current_paper:
                 relationship_queries(G, current_paper)
