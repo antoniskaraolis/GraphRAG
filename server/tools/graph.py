@@ -7,7 +7,6 @@ from graphrag.query import semantic_search
 
 @lru_cache(maxsize=1)
 def _load_graph() -> nx.Graph:
-    """Load and cache the graph for graph endpoints."""
     return get_graph()
 
 @mcp.tool(name="graph/stats", description="Get total node and edge counts.")
