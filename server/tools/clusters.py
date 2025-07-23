@@ -7,7 +7,6 @@ from graphrag.clustering import cluster_papers, analyze_clusters
 
 @lru_cache(maxsize=1)
 def _load_graph() -> nx.Graph:
-    """Load graph once for clustering endpoints."""
     return get_graph()
 
 @mcp.tool(name="clusters/list", description="Cluster papers and return groupings.")
