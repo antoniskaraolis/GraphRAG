@@ -3,18 +3,15 @@ from functools import lru_cache
 from server.config import settings
 
 @lru_cache(maxsize=1)
-def load_graph() -> nx.Graph:
-    """Load and cache the GraphML file once."""
+def load_graph() -> nx.DiGraph:
     return nx.read_graphml(settings.GRAPH_PATH)
 
 
-def get_graph() -> nx.Graph:
-    """Return the cached graph instance."""
+def get_graph() -> nx.DiGraph:
     return load_graph()
 
 
 def get_neighbors(node_id: str, relationship: str | None = None) -> list[str]:
-    """Get neighbors, optionally filtering by edge relationship."""
     G = get_graph()
     if node_id not in G:
         raise KeyError(f"Node '{node_id}' not found in graph.")
