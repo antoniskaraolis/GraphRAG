@@ -1,0 +1,6 @@
+
+# Additional dependencies for the GraphRAG Streamlit UI
+
+streamlit>=1.25.0
+streamlit-agraph>=0.0.42
+plotly>=5.15.0
