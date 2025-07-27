@@ -6,13 +6,24 @@ from server.graph_utils import get_graph, get_neighbors
 from graphrag.query import semantic_search
 
 @lru_cache(maxsize=1)
-def _load_graph() -> nx.Graph:
+def _load_graph() -> nx.DiGraph:
     return get_graph()
 
 @mcp.tool(name="graph/stats", description="Get total node and edge counts.")
 def graph_stats() -> Dict[str, int]:
     G = _load_graph()
-    return {"num_nodes": G.number_of_nodes(), "num_edges": G.number_of_edges()}
+    
+    papers = sum(1 for _, d in G.nodes(data=True) if d.get("type") == "paper")
+    authors = sum(1 for _, d in G.nodes(data=True) if d.get("type") == "author")
+    topics  = sum(1 for _, d in G.nodes(data=True) if d.get("type") == "topic")
+
+    return {
+        "num_nodes": G.number_of_nodes(),
+        "num_edges": G.number_of_edges(),
+        "papers": papers,
+        "authors": authors,
+        "topics": topics,
+    }
 
 @mcp.tool(name="graph/search", description="Semantic search over paper embeddings.")
 def graph_search(query: str, top_k: int = 10) -> List[Dict[str, Any]]:
